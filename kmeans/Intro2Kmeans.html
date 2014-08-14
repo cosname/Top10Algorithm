@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Kmeans简介与其R实现</title>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Kmeans简介与其R实现</h1>
+
+<h3>Kmeans是什么</h3>
+
+<p>聚类分析是一类重要的非监督学习任务。在我们缺乏数据标签的时候，聚类分析是将数据根据相似程度打包分类的好方法。而Kmeans则是聚类分析中最常用的算法之一。</p>
+
+<p>现在常用的Kmeans是一个不断迭代优化的算法。它的基本运算步骤如下：</p>
+
+<ol>
+<li>输入参数（需要聚类的数据，聚类中心个数），初始化随机选择聚类中心</li>
+<li>计算每个数据点到每个聚类中心的距离，并将数据点分为离它最近中心的类别</li>
+<li>计算每个类的新中心</li>
+<li>迭代重复2-3步，更新聚类结果</li>
+<li>输出聚类结果</li>
+</ol>
+
+<p>这么说可能有些抽象，让我们来看一看下面这幅动态图：</p>
+
+<p><img src="http://ww4.sinaimg.cn/mw690/61830650gw1ej2zewy78ig20dc0dcjtb.gif" alt="Kmeans GIF"/></p>
+
+<p>图中五团黑色的点代表我们的无标签数据，而红色的十字表示迭代时不断变化的聚类中心。可以发现，在刚开始第一次迭代的时候，聚类中心都是随机生成的，缩成一团：</p>
+
+<p><img src="http://ww1.sinaimg.cn/mw690/61830650gw1ej3028mbb5j20dg0dcaaf.jpg" alt="Kmeans Iteration 1"/></p>
+
+<p>每个数据点都要对这些缩成一团几乎没有差别的中心计算距离，然后看看自己离哪个中心最近，从而暂时确定类别。每个数据点的类别都确定了之后，接下来分别计算每个类里数据点的重心（即平均坐标），我们可以发现有两个中心比较准确地找到了两团数据点的中心：</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/61830650gw1ej3029ufv1j20dd0de0t2.jpg" alt="Kmeans Iteration 2"/></p>
+
+<p>接下来第三步出现了不太幸运的事情：左上角的两团数据点共享一个中心，导致所有数据点所分的类别只有4个。</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw690/61830650gw1ej302b1tz2j20df0dgt92.jpg" alt="Kmeans Iteration 3"/></p>
+
+<p>那么还有一个中心如何计算其坐标呢？这里采用的策略是对其他4个中心的位置加上随机权重进行平均，求出的坐标就是第5个中心。可以看出，实际上从第2步开始，这个中心就开始了漫长的随机漂泊之旅。直到第10步：</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw690/61830650gw1ej302c67khj20dc0d5dg5.jpg" alt="Kmeans Iteration 10"/></p>
+
+<p>第5个中心正好随机落在某个数据团的中心，这样这个数据团所分的类别变成了第5类，只有左上角的数据分为第四类——重新计算重心之后，我们就得到了稳定的聚类结果。</p>
+
+<hr/>
+
+<h3>R中的Kmeans</h3>
+
+<p>R里自带了Kmeans函数，用以方便地实现基本的Kmeans算法。我们首先生成之前演示用的数据：</p>
+
+<pre><code class="r">set.seed(1024)
+P = do.call(rbind, rep(list(matrix(rnorm(10, sd = 10), ncol=2)), 20))
+P = P + matrix(rnorm(200), ncol =2)
+plot(P[,1],P[,2],pch=20)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-1"/> </p>
+
+<p>接下来使用Kmeans算法求出结果，并且画图：</p>
+
+<pre><code class="r">a = kmeans(P,centers = 5, iter.max=100)
+plot(P[,1],P[,2],pch=20)
+points(a$centers[,1],a$centers[,2],col=2,pch=&#39;+&#39;,cex=3)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-2"/> </p>
+
+<p>可以看到，我们又遇到了“两个数据团共享一个中心”的情况，如何解决呢？在kmeans函数中，我们可以设置一个参数<code>nstart</code>，它表示我们要尝试多少个不同的随机初始值。在很多迭代算法中，初始值往往是影响效果的重要因素。</p>
+
+<pre><code class="r">a = kmeans(P,centers = 5, iter.max=100, nstart = 5)
+plot(P[,1],P[,2],pch=20)
+points(a$centers[,1],a$centers[,2],col=2,pch=&#39;+&#39;,cex=3)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-3"/> </p>
+
+<p>你看，现在就正确地分出类别了。</p>
+
+<hr/>
+
+<h3>更进一步的讨论</h3>
+
+<p>Kmeans的主要思想是给数据分配k个中心，使得每个点的类别即为最近的中心，而且属于同一类别的一对点比不同类别的一对点更相近。不幸的是，<a href="http://link.springer.com/article/10.1007%2Fs10994-009-5103-0">有人证明了</a>全局最优解是<a href="http://en.wikipedia.org/wiki/NP-hard">NP-Hard</a>的。所以我们只能通过一些近似算法来做，例如最经典的迭代算法。<code>kmeans</code>函数有一个参数<code>algorithm</code>，即让我们控制进行聚类时的算法。</p>
+
+<p>另一方面，kmeans也有许多的扩展方法，也有部分方法在R中有很好的实现，其中值得一提的是<a href="http://www.jstatsoft.org/v50/i10/paper"><code>skmeans</code>包</a>。skmeans的意思是“Spherical k-Means”，意思是将所有的数据点投影到单位球面上，再根据样本之间的夹角作为距离进行聚类分析。这个方法的好处是什么呢？在做文本聚类的时候，文本的长度可能差别很大，因此造成计算距离时的不准确。除了这个改进，这个包还有下面的几个重要特征：</p>
+
+<ol>
+<li>支持输入稀疏矩阵，即<code>Matrix</code>包中的<code>dgTMatrix</code>类，甚至支持<code>slam</code>包中的<code>simple_triplet_matrix</code>类。</li>
+<li>支持遗传算法优化。</li>
+<li>支持多种工具接口：CLUTO，gmeans等。</li>
+</ol>
+
+<p>下面的实验即是将skmeans算法应用到样例数据上。首先我们把数据映射到单位圆盘上：</p>
+
+<pre><code class="r">l = sqrt(P[,1]^2+P[,2]^2)
+Pnorm = P
+Pnorm[,1] = Pnorm[,1]/l
+Pnorm[,2] = Pnorm[,2]/l
+plot(Pnorm[,1],Pnorm[,2],pch=20)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-4"/> </p>
+
+<p>接着使用skmeans进行聚类：</p>
+
+<pre><code class="r">a = skmeans(Pnorm,k=5)
+plot(Pnorm[,1],Pnorm[,2],pch=20)
+points(a$prototypes[,1],a$prototypes[,2],col=2,pch=&#39;+&#39;,cex=3)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-5"/> </p>
+
+<p>可以看到，这个聚类还是比较准确的。如果数据在某个方向上有不止一个类别，那么会导致映射到圆盘上时出现重叠。这种情况下可以考虑将数据标准化，再进行skmeans聚类。</p>
+
+</body>
+
+</html>
