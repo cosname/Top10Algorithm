@@ -2,6 +2,7 @@ PageRank 是 Google 的评价网页重要性的算法之一。它由 Google 的�
 
 本文的内容主要参照 Wikipedia 的 PageRank 词条[2]，代码根据算法定义写出来。
 
+本文文本根据 [CC BY-SA](http://creativecommons.org/licenses/by-sa/3.0/) 协议发布，代码片段根据 [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html) 协议或其后的版本发布。
 
 直观理解：
 
