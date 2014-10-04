@@ -8,8 +8,11 @@ Top10Algorithm
 
 分工
 
-apriori：周晓坤
-kmeans：何通
-EM：尤晓斌
-CART：董伟
-pagerank:黄俊文
+算法      |撰稿人
+----------|-----------
+apriori   |周晓坤
+kmeans    |何通
+EM        |尤晓斌
+CART      |董伟
+pagerank  |黄俊文
+NaiveBayes|叶俊鹏
